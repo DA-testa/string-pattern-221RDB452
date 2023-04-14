@@ -26,7 +26,7 @@ def get_occurrences(pattern, text):
     if pattern_hash == text_hash and pattern==text[:len(pattern)]:
         occur.append(0)
     p_pow=pow(p,len(pattern),m)
-    for i in range (1, len(text)- len(pattern)+1:)
+    for i in range (1, len(text)- len(pattern)+1):
         text_hash = (text_hash - ord(text[i-1])*p_pow) % m
         text_hash = (text_hash *p+ord(text[i+len(pattern)-1]))% m 
         if pattern_hash == text_hash and pattern == text[i:i+len(pattern)]:
