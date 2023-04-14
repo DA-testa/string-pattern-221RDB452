@@ -1,32 +1,37 @@
 # python3
 
 def read_input():
-    # this function needs to aquire input both from keyboard and file
-    # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
-    
-    
-    # after input type choice
-    # read two lines 
-    # first line is pattern 
-    # second line is text in which to look for pattern 
-    
-    # return both lines in one return
-    
-    # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
-
+    chc = input().rstrip().lower()
+    if chc == 'T':
+        pattern = input().rstrip()
+        text = input().rstrip()
+    elif chc =='F':
+        with open(input().rstrip(),'r') as F:
+            pattern= F.readline().rstrip()
+            text = F.readline().rstrip()
+    return pattern,text
 def print_occurrences(output):
-    # this function should control output, it doesn't need any return
-    print(' '.join(map(str, output)))
+    print(' '.join(map(str,output)))
 
 def get_occurrences(pattern, text):
-    # this function should find the occurances using Rabin Karp alghoritm 
-
-    # and return an iterable variable
-    return [0]
-
-
-# this part launches the functions
+    p =31
+    m =10**9+9
+    occur = []
+    pattern_hash = 0
+    for i in range(len(pattern)):
+        pattern_hash =(pattern_hash + ord(pattern[i])* pow(p,i,m))% m
+    text_hash =0
+    for i in range(len(pattern)):
+        text_hash =(text_hash + ord(text[i])* pow(p,i,m))% m
+    if pattern_hash == text_hash and pattern==text[:len(pattern)]:
+        occur.append(0)
+    p_pow=pow(p,len(pattern),m)
+    for i in range (1, len(text)- len(pattern)+1:)
+        text_hash = (text_hash - ord(text[i-1])*p_pow) % m
+        text_hash = (text_hash *p+ord(text[i+len(pattern)-1]))% m 
+        if pattern_hash == text_hash and pattern == text[i:i+len(pattern)]:
+            occur.append(i)
+    return occur
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
 
