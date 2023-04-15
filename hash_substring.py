@@ -42,6 +42,6 @@ if __name__ == '__main__':
     else:
         print("Invalid choice")
         exit(1)
-    print_occurrences(get_occurrences(pattern, text)))
+    print_occurrences(get_occurrences(pattern, text))
 
 
