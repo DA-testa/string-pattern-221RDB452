@@ -1,19 +1,11 @@
 # python3
 
 def read_input():
-    chc = input().rstrip().lower()
-    if chc =='t':
-        pattern=input().rstrip()
-        text=input().rstrip()
-    elif chc=='f':
-        with open(input().rstrip(),'r') as f:
-            pattern=f.readline().rstrip()
-            text=f.readline().rstrip()
-    return pattern,text
-
+    pattern = input().rstrip()
+    text = input().rstrip()
+    return pattern, text
 def print_occurrences(output):
     print(' '.join(map(str,output)))
-
 def get_occurrences(pattern,text):
     p = 31
     m = 10**9+9
@@ -36,5 +28,6 @@ def get_occurrences(pattern,text):
 
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
+
 
 
