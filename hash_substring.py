@@ -9,7 +9,7 @@ def read_input():
         with open(input().rstrip(),'r') as f:
             pattern=f.readline().rstrip()
             text=f.readline().rstrip()
-    return pattern, text
+    return pattern,text
 
 def print_occurrences(output):
     print(' '.join(map(str,output)))
@@ -30,15 +30,11 @@ def get_occurrences(pattern,text):
     for i in range(1,len(text)-len(pattern)+1):
         text_hash = (text_hash-ord(text[i-1])*p_pow) % m
         text_hash = (text_hash*p+ord(text[i+len(pattern)-1])) % m
-        if pattern_hash == text_hash and pattern == text[i:i +len(pattern)]:
+        if pattern_hash == text_hash and pattern == text[i:i+len(pattern)]:
             occur.append(i)
     return occur
 
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
-
-
-
-
 
 
