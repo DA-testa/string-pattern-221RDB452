@@ -2,17 +2,19 @@
 
 def read_input():
     chc = input().rstrip().lower()
-    if chc =='t':
+    if chc =='T':
         pattern=input().rstrip()
         text=input().rstrip()
-    elif chc=='f':
+    elif chc=='P':
         with open(input().rstrip(),'r') as f:
             pattern=f.readline().rstrip()
             text=f.readline().rstrip()
     return pattern,text
 def print_occurrences(output):
-    print(' '.join(map(str,output)))
-def get_occurrences(pattern,text):
+    for occurrence in output:
+        print(occurrence, end=' ')
+    print()
+def get_occurrences(pattern, text):
     p = 31
     m = 10**9+9
     occur = []
@@ -24,16 +26,17 @@ def get_occurrences(pattern,text):
         text_hash = (text_hash+ord(text[i])*pow(p,i,m)) % m
     if pattern_hash == text_hash and pattern == text[:len(pattern)]:
         occur.append(0)
-    p_pow = pow(p, len(pattern), m)
+    p_pow = pow(p,len(pattern),m)
     for i in range(1,len(text)-len(pattern)+1):
-        text_hash = (text_hash-ord(text[i-1])*p_pow) % m
+        text_hash = (text_hash-ord(text[i-1])*p_pow)% m
         text_hash = (text_hash*p+ord(text[i+len(pattern)-1])) % m
-        if pattern_hash == text_hash and pattern == text[i:i +len(pattern)]:
+        if pattern_hash == text_hash and pattern == text[i:i+len(pattern)]:
             occur.append(i)
     return occur
 
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
+
 
 
 
