@@ -4,19 +4,16 @@ def read_input_console():
     pattern = input().rstrip()
     text = input().rstrip()
     return pattern, text
-
 def read_input_file():
     with open(input().rstrip(),'r') as f:
         pattern = f.readline().rstrip()
         text = f.readline().rstrip()
     return pattern, text
-
 def print_occurrences(output):
     if not output:
         print("Pattern not found")
     else:
         print(' '.join(map(str,output)))
-
 def get_occurrences(pattern, text):
     p = 31
     m = 10**9+9
@@ -43,6 +40,4 @@ if __name__ == '__main__':
         print("Invalid choice")
         exit(1)
     print_occurrences(get_occurrences(pattern, text))
-
-
 
