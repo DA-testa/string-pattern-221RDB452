@@ -5,10 +5,16 @@ def read_input_console():
     text = input().rstrip()
     return pattern, text
 def read_input_file():
-    with open(input().rstrip(),'r') as f:
-        pattern = f.readline().rstrip()
-        text = f.readline().rstrip()
-    return pattern, text
+    choice = input().strip()
+    if choice == 'F':
+        with open('input.txt', 'r') as f:
+            p = f.readline().strip()
+            t = f.readline().strip()
+    else:
+        p = input().strip()
+        t = input().strip()
+    return p, t
+
 def print_occurrences(output):
     if not output:
         print("Pattern not found")
