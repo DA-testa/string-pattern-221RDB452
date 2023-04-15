@@ -4,28 +4,25 @@ def read_input_console():
     pattern = input().rstrip()
     text = input().rstrip()
     return pattern, text
+
 def read_input_file():
-    choice = input().strip()
-    if choice == 'F':
-        with open('input.txt', 'r') as f:
-            p = f.readline().strip()
-            t = f.readline().strip()
-    else:
-        p = input().strip()
-        t = input().strip()
-    return p, t
+    with open(input().rstrip(),'r') as f:
+        pattern = f.readline().rstrip()
+        text = f.readline().rstrip()
+    return pattern, text
 
 def print_occurrences(output):
     if not output:
         print("Pattern not found")
     else:
         print(' '.join(map(str,output)))
+
 def get_occurrences(pattern, text):
     p = 31
     m = 10**9+9
-    pattern_hash = hash(pattern) % m
-    text_hash = hash(text[:len(pattern)]) % m
-    p_pow = pow(p, len(pattern)-1, m)
+    p_pow = pow(p, len(pattern), m)
+    pattern_hash = sum(ord(c) * pow(p, i, m) for i, c in enumerate(pattern)) % m
+    text_hash = sum(ord(c) * pow(p, i, m) for i, c in enumerate(text[:len(pattern)])) % m
     occur = []
     if pattern_hash == text_hash and pattern == text[:len(pattern)]:
         occur.append(0)
@@ -45,5 +42,6 @@ if __name__ == '__main__':
     else:
         print("Invalid choice")
         exit(1)
-    print_occurrences(get_occurrences(pattern, text))
+    print_occurrences(get_occurrences(pattern, text)))
+
 
