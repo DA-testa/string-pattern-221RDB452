@@ -1,35 +1,48 @@
 # python3
 
-import numpy as np
-
-def read_input():
-    pattern = input().strip()
-    text = input().strip()
+def read_input_console():
+    pattern = input().rstrip()
+    text = input().rstrip()
     return pattern, text
 
-def precompute_hashes(text, pattern_len, prime, multiplier):
-    hashes = np.zeros(len(text) - pattern_len + 1, dtype=int)
-    hashes[-1] = polynomial_hash(text[-pattern_len:], prime, multiplier)
-    for i in range(len(text) - pattern_len - 1, -1, -1):
-        hashes[i] = (multiplier * hashes[i + 1] + ord(text[i]) - ord(text[i + pattern_len]) * pow(multiplier, pattern_len)) % prime
-    return hashes
+def read_input_file():
+    with open(input().rstrip(),'r') as f:
+        pattern = f.readline().rstrip()
+        text = f.readline().rstrip()
+    return pattern, text
 
-def polynomial_hash(s, prime, multiplier):
-    h = 0
-    for c in reversed(s):
-        h = (h * multiplier + ord(c)) % prime
-    return h
+def print_occurrences(output):
+    if not output:
+        print("Pattern not found")
+    else:
+        print(' '.join(map(str,output)))
 
 def get_occurrences(pattern, text):
-    prime = 10**9 + 7
-    multiplier = np.random.randint(1, prime)
-    pattern_hash = polynomial_hash(pattern, prime, multiplier)
-    hashes = precompute_hashes(text, len(pattern), prime, multiplier)
-    return [i for i in range(len(text) - len(pattern) + 1) if pattern_hash == hashes[i]]
+    p = 31
+    m = 10**9+9
+    pattern_hash = hash(pattern) % m
+    text_hash = hash(text[:len(pattern)]) % m
+    p_pow = pow(p, len(pattern)-1, m)
+    occur = []
+    if pattern_hash == text_hash and pattern == text[:len(pattern)]:
+        occur.append(0)
+    for i in range(1, len(text)-len(pattern)+1):
+        text_hash = (text_hash - ord(text[i-1]) * p_pow) % m
+        text_hash = (text_hash * p + ord(text[i+len(pattern)-1])) % m
+        if pattern_hash == text_hash and pattern == text[i:i+len(pattern)]:
+            occur.append(i)
+    return occur
 
 if __name__ == '__main__':
-    pattern, text = read_input()
-    occurrences = get_occurrences(pattern, text)
-    print(" ".join(str(i) for i in occurrences))
+    chc = input().rstrip().lower()
+    if chc =='t':
+        pattern, text = read_input_console()
+    elif chc=='f':
+        pattern, text = read_input_file()
+    else:
+        print("Invalid choice")
+        exit(1)
+    print_occurrences(get_occurrences(pattern, text))
+
 
 
