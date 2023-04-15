@@ -35,9 +35,9 @@ def get_occurrences(pattern, text):
 
 if __name__ == '__main__':
     chc = input().rstrip().lower()
-    if chc =='T':
+    if chc =='I':
         pattern, text = read_input_console()
-    elif chc=='P':
+    elif chc=='F':
         pattern, text = read_input_file()
     else:
         print("Invalid choice")
