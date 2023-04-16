@@ -8,7 +8,7 @@ def read_input():
         return (pattern, text)
     elif input_type == 'F':
         with open("tests/06", "r") as file:
-            pattern = file.rreadline().strip()
+            pattern = file.readline().strip()
             text = file.readline().strip()
         return (pattern, text)
     else:
@@ -18,7 +18,7 @@ def print_occurrences(output):
     print(' '.join(map(str,output)))
 def get_occurrences(pattern,text):
     p = 31
-    m = 10**9+9
+    m = 10**7+19
     occur = []
     pattern_hash = 0
     for i in range(len(pattern)):
