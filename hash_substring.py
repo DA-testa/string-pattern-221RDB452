@@ -17,7 +17,7 @@ def read_input():
 def print_occurrences(output):
     print(' '.join(map(str,output)))
 def get_occurrences(pattern,text):
-pl = len(pattern)
+    pl = len(pattern)
     ph =sum(ors(c) for c in pattern)
     th = sum(ord(text[i]) for i in range(pl))
     tl= len(text)
