@@ -1,7 +1,7 @@
 # python3
 
 def read_input():
-    input_type == 'I':
+    input_type = 'I':
         pattern = input().strip()
         text = input().strip()
         return (pattern, text)
